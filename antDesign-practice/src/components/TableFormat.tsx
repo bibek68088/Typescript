@@ -1,7 +1,6 @@
-import React from 'react'
 import { Table } from 'antd'
 
-const TableFormat = (props) => {
+const TableFormat = () => {
   return (
     <div>
         <Table

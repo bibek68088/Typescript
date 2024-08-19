@@ -1,45 +1,77 @@
-import { Table } from "antd"
+import { Input, Table } from "antd"
+import { useState } from "react";
 
-const source = [
+interface DataSourceItem {
+    id: number,
+    name: string,
+    age: number,
+}
+
+const dataSource: DataSourceItem[] = [
     {
         id: 1,
-        Name: 'Ram',
+        name: 'Ram',
         age: 22
     },
     {
         id: 2,
-        Name: 'Shyam',
+        name: 'Shyam',
         age: 24,
     },
     {
         id: 3,
-        Name: 'Hari',
+        name: 'Hari',
         age: 25,
     },
-];
-
-const columns = [
     {
-        title: '#',
-        dataIndex: 'id',
-        key: 'id',
-        width: '6%',
-    },
-    {
-        title: 'Name',
-        dataIndex: 'Name',
-        key: 'name',
-        width: '36%',
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'Age',
-        width: '30%',
+        id: 4,
+        name: 'Laxman',
+        age: 20,
     },
 ];
 
-const TableContents = () => {
+
+
+const TableContents: React.FC = () => {
+    const [source, setSource] = useState<DataSourceItem[]>(dataSource);
+
+
+    const columns = [
+        {
+            title: '#',
+            dataIndex: 'id',
+            key: 'id',
+            width: '6%',
+        },
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            width: '36%',
+            render: (_text: string, record: DataSourceItem) => {
+                return (
+                    <Input
+                    type="text"
+                    value = {record['name']}
+                    onChange={e => handleChange(record.id, e.target.value)}
+                    >
+
+                    </Input>
+                );
+            },
+        },
+        {
+            title: 'Age',
+            dataIndex: 'age',
+            key: 'Age',
+            width: '30%',
+        },
+    ];
+
+    const handleChange = (id: number, value: string) => {
+        const newSource = source.map(item => item.id === id ? {...item, name: value}: item);
+        setSource(newSource);
+    }
 
   return (
 
@@ -48,8 +80,9 @@ const TableContents = () => {
             columns = {columns}
             bordered 
             size ={'large'}
+            rowKey={'id'}
         />
-  )
+  );
 }
 
 export default TableContents

@@ -1,4 +1,6 @@
-import TableContents from "./components/TableContents"
+// import TableContents from "./components/TableContents"
+
+import ToDoList from "./components/ToDoList"
 
 
 function App() {
@@ -7,7 +9,8 @@ function App() {
   return (
     <>
       <div>
-       <TableContents />
+       {/* <TableContents /> */}
+       <ToDoList />
       </div>
     </>
   )
